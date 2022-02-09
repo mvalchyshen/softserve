@@ -4,7 +4,7 @@ import lombok.SneakyThrows;
 import model.BaseEntity;
 
 import java.io.*;
-import java.util.Objects;
+import java.lang.reflect.Field;
 import java.util.StringJoiner;
 
 public class FileRepositoryImpl<E extends BaseEntity<ID>, ID> implements FileRepository<E, ID> {
@@ -34,9 +34,17 @@ public class FileRepositoryImpl<E extends BaseEntity<ID>, ID> implements FileRep
     }
 
     @Override
+    @SneakyThrows
     public boolean saveToFile(E e) {
         StringJoiner sj = new StringJoiner(";");
-
+        Field[] declaredFields = e.getClass().getDeclaredFields();
+        for (Field field: declaredFields) {
+            field.setAccessible(true);
+            sj.add(String.valueOf(field.get(e)));
+        }
+        sj.add("\n");
+        bw.write(sj.toString());
+        bw.flush();
         return false;
     }
 
