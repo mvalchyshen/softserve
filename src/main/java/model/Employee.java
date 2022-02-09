@@ -1,6 +1,9 @@
 package model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -25,4 +28,5 @@ public class Employee implements BaseEntity<UUID> {
     private Integer salary;
     private LocalDate firstWorkDay;
     private String note;
+
 }

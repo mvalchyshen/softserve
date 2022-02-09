@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import model.BaseEntity;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class BaseRepositoryImpl<E extends BaseEntity<ID>,ID> implements BaseRepository<E,ID>{
