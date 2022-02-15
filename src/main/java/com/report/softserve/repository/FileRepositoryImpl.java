@@ -1,7 +1,7 @@
-package repository;
+package com.report.softserve.repository;
 
 import lombok.SneakyThrows;
-import model.BaseEntity;
+import com.report.softserve.model.BaseEntity;
 
 import java.io.*;
 import java.lang.reflect.Field;

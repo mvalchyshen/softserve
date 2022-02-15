@@ -1,8 +1,8 @@
-package repository;
+package com.report.softserve.repository;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import model.BaseEntity;
+import com.report.softserve.model.BaseEntity;
 
 import java.util.*;
 

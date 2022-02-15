@@ -1,6 +1,6 @@
-package repository;
+package com.report.softserve.repository;
 
-import model.BaseEntity;
+import com.report.softserve.model.BaseEntity;
 
 import java.util.List;
 import java.util.Optional;

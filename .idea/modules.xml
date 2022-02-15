@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/softserve.iml" filepath="$PROJECT_DIR$/softserve.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/softserve.iml" filepath="$PROJECT_DIR$/.idea/softserve.iml" />
     </modules>
   </component>
 </project>

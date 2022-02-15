@@ -1,4 +1,4 @@
-package model;
+package com.report.softserve.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,16 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Employee implements BaseEntity<UUID> {
+public class Employee implements BaseEntity<Long> {
 
-    private UUID id;
+    private Long id;
     private String surname;
     private String name;
     private String fathersName;
