@@ -1,8 +1,6 @@
-package repository;
+package com.report.softserve.repository;
 
-import model.BaseEntity;
-
-import java.util.List;
+import com.report.softserve.model.BaseEntity;
 
 public interface FileRepository<E extends BaseEntity<ID>,ID> {
     boolean saveToFile(E e);

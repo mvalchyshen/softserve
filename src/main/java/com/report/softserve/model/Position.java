@@ -1,4 +1,4 @@
-package model;
+package com.report.softserve.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
