@@ -1,14 +1,17 @@
 package com.report.softserve.repository;
 
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
 import com.report.softserve.model.BaseEntity;
 
 import java.util.*;
 
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+
 public class BaseRepositoryImpl<E extends BaseEntity<ID>,ID> implements BaseRepository<E,ID>{
-    private final Map<ID,E> STORAGE = new HashMap<>();
+    private final Map<ID,E> STORAGE;
+
+    public BaseRepositoryImpl(Class<E> eClass) {
+        STORAGE = new HashMap<>();
+    }
+
     @Override
     public E save(E e) {
         if (Objects.isNull(e)) throw new RuntimeException("It's impossible to save null");
