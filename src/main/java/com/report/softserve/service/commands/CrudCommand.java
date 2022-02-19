@@ -1,5 +1,6 @@
 package com.report.softserve.service.commands;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.report.softserve.model.BaseEntity;
 import com.report.softserve.repository.BaseRepository;
 import com.report.softserve.repository.FileRepository;
@@ -7,25 +8,29 @@ import com.report.softserve.repository.FileRepositoryImpl;
 import com.report.softserve.repository.RepositoryFactory;
 import com.report.softserve.view.View;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 public abstract class CrudCommand<E extends BaseEntity<ID>, ID> implements Command {
-    private final View view;
-    private final Map<String, Command> commands;
+    protected final View view;
+    protected final Map<String, Command> commands;
     private final BaseRepository<E, ID> repository;
     private final FileRepository<E, ID> fileRepository;
     private final Class<E> className;
+
 
     public CrudCommand(View view, Map<String, Command> commands, Class<E> className) {
         this.view = view;
         this.commands = commands;
         this.className = className;
-        repository = RepositoryFactory.of(className);
-        fileRepository = new FileRepositoryImpl<>(className);
+        this.repository = RepositoryFactory.of(className);
+        this.fileRepository = new FileRepositoryImpl<>(className);
+
     }
+
 
     protected void save(E e) {
         E save = repository.save(e);
@@ -48,7 +53,7 @@ public abstract class CrudCommand<E extends BaseEntity<ID>, ID> implements Comma
         sendResult(!all.isEmpty(), all);
     }
 
-    protected void delete(ID id){
+    protected void delete(ID id) {
         repository.delete(id);
         this.updateFile();
     }
@@ -58,7 +63,14 @@ public abstract class CrudCommand<E extends BaseEntity<ID>, ID> implements Comma
         else view.write("No element with such id was found");
     }
 
-    private void updateFile(){
+    private Set<String> getFieldsName() {
+        return Arrays.stream(className.getDeclaredFields())
+                .filter(field -> !Modifier.isStatic(field.getModifiers()))
+                .map(Field::getName)
+                .collect(Collectors.toSet());
+    }
+
+    private void updateFile() {
         fileRepository.updateFile();
     }
 

@@ -1,6 +1,6 @@
 package com.report.softserve.view;
 
 public interface View {
-    String readCommand();
+    String read();
     void write(Object... objs);
 }
