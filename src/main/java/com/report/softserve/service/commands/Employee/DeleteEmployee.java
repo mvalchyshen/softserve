@@ -14,16 +14,17 @@ public class DeleteEmployee extends CrudCommand<Employee,Long> {
 
     @Override
     public void process() {
-
+        view.write("type in entity's ID to delete :");
+        delete(Long.parseLong(view.read()));
     }
 
     @Override
     public String description() {
-        return null;
+        return ": видалити існуючого працівника";
     }
 
     @Override
     public String commandName() {
-        return null;
+        return "3";
     }
 }

@@ -20,17 +20,17 @@ public class AddEmployeeCommand extends CrudCommand<Employee, Long> {
     @Override
     public void process() {
         view.write("To create employee follow the instructions");
-        createEntity();
+        save(createEntity());
     }
 
     @Override
     public String description() {
-        return "додати нового працівника";
+        return ": додати нового працівника";
     }
 
     @Override
     public String commandName() {
-        return "1:";
+        return "2";
     }
 
 
@@ -49,7 +49,7 @@ public class AddEmployeeCommand extends CrudCommand<Employee, Long> {
         view.write("type in room number");
         Integer roomNumber = Integer.parseInt(view.read());
         view.write("type in phone number");
-        Integer phoneNumber = Integer.parseInt(view.read());
+        String phoneNumber = view.read();
         view.write("type in email");
         String email = view.read();
         view.write("type in salary");
@@ -88,14 +88,26 @@ public class AddEmployeeCommand extends CrudCommand<Employee, Long> {
         view.write("type in department : ");
         Arrays.stream(Department.values())
                 .forEach(department -> view.write(department.getName()));
-        return Department.valueOf(view.read());
+        try {
+            return Department.getByName(view.read());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            view.write("type in existing position");
+            return getDepartmentFromConsole();
+        }
     }
 
     private Position getPositionFromConsole() {
         view.write("type in position: ");
         Arrays.stream(Position.values())
                 .forEach(position -> view.write(position.getName()));
-        return Position.valueOf(view.read());
+        try {
+            return Position.getByName(view.read());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            view.write("type in existing position");
+            return getPositionFromConsole();
+        }
     }
 
     private LocalDate getDateOfBirth() {

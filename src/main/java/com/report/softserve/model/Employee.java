@@ -22,7 +22,7 @@ public class Employee implements BaseEntity<Long> {
     private Position position;
     private Department department;
     private Integer roomNumber;
-    private Integer phoneNumber;
+    private String phoneNumber;
     private String email;
     private Integer salary;
     private LocalDate firstWorkDay;

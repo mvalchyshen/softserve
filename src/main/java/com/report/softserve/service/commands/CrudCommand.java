@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public abstract class CrudCommand<E extends BaseEntity<ID>, ID> implements Command {
     protected final View view;
     protected final Map<String, Command> commands;
-    private final BaseRepository<E, ID> repository;
+    protected final BaseRepository<E, ID> repository;
     private final FileRepository<E, ID> fileRepository;
     private final Class<E> className;
 
@@ -45,7 +45,7 @@ public abstract class CrudCommand<E extends BaseEntity<ID>, ID> implements Comma
 
     protected void findById(ID id) {
         Optional<E> item = repository.findById(id);
-        sendResult(item.isPresent(), item);
+        sendResult(item.isPresent(), item.get());
     }
 
     protected void findAll() {
@@ -61,13 +61,6 @@ public abstract class CrudCommand<E extends BaseEntity<ID>, ID> implements Comma
     private void sendResult(boolean present, Object item) {
         if (present) view.write(item);
         else view.write("No element with such id was found");
-    }
-
-    private Set<String> getFieldsName() {
-        return Arrays.stream(className.getDeclaredFields())
-                .filter(field -> !Modifier.isStatic(field.getModifiers()))
-                .map(Field::getName)
-                .collect(Collectors.toSet());
     }
 
     private void updateFile() {

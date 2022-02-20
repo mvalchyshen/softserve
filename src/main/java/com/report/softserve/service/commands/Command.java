@@ -5,9 +5,7 @@ import lombok.SneakyThrows;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public interface Command {
     void process();
@@ -20,7 +18,7 @@ public interface Command {
     static Map<String, Command> of(View view) {
         Set<Class<? extends Command>> commandClasses = new Reflections("com.report.softserve")
                 .getSubTypesOf(Command.class);
-        Map<String, Command> commands = new HashMap<>(commandClasses.size());
+        Map<String, Command> commands = new LinkedHashMap<>(commandClasses.size());
         for (Class<? extends Command> commandClass : commandClasses) {
             if (Modifier.isAbstract(commandClass.getModifiers()) || commandClass.isInterface()) continue;
             Command command = commandClass.getConstructor(View.class, Map.class).newInstance(view, commands);

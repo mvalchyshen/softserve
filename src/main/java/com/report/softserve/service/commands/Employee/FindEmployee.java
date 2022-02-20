@@ -8,22 +8,24 @@ import com.report.softserve.view.View;
 import java.util.Map;
 
 public class FindEmployee extends CrudCommand<Employee,Long> {
-    public FindEmployee(View view, Map<String, Command> commands, Class<Employee> className) {
-        super(view, commands, className);
+
+    public FindEmployee(View view, Map<String, Command> commands) {
+        super(view, commands, Employee.class);
     }
 
     @Override
     public void process() {
-
+        view.write("type in id");
+        findById(Long.parseLong(view.read()));
     }
 
     @Override
     public String description() {
-        return null;
+        return ": знайти працівника по id";
     }
 
     @Override
     public String commandName() {
-        return null;
+        return "5";
     }
 }

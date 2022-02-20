@@ -1,9 +1,11 @@
 package com.report.softserve;
 
-public class Main {
-    void m1(int i){}
-    void m1(int i,int o) {}
-    public static void main(String[] args) {
+import com.report.softserve.controller.ConsoleController;
+import com.report.softserve.view.ViewImpl;
 
+public class Main {
+
+    public static void main(String[] args) {
+        new ConsoleController(new ViewImpl()).proceed();
     }
 }
